@@ -50,14 +50,23 @@ namespace flashcardsCsRewrite {
             return drawnQuestion;
         }
         private static string correctAnswer(string question, string[] QAlist) {
-            string crrctAnswer; 
-            for (int line = 0; line < QAlist.Length; line++) {
-                if (QAlist[line] == question) {
-                    crrctAnswer = QAlist[line+1];
-                    return crrctAnswer;
+            string crrctAnswer;
+            //crash handler when user will click too fast
+            while (true) {
+                try {
+                    for (int line = 0; line < QAlist.Length; line++) {
+                        if (QAlist[line] == question) {
+                            crrctAnswer = QAlist[line + 1];
+                            return crrctAnswer;
+                        }
+                    }
+                    return "null";
+                }
+                catch {
+                    question = randomQ(QAlist);
+                    continue;
                 }
             }
-            return "null";
         }
         private void checkAnswer() {
             string[] QandA = File.ReadAllLines("QandA.txt");
