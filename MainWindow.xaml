@@ -12,8 +12,15 @@
         <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Name="Answer"
                  Text="" VerticalAlignment="Center" Width="150" 
                  Height="27" FontSize="18" TextAlignment="Center"/>
+        
         <Button Name="submit" Height="25" Width="100" Content="submit"
                 VerticalAlignment="Center" HorizontalAlignment="Center" 
                 Margin="0, 100, 0, 0" Click="submit_Click"/>
+        
+        <TextBlock Text="Here will be output" Name="output" VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"  Width="375" Height="30"
+                   FontSize="22" TextAlignment="Center" Margin="0, 200, 0, 0"
+                   Foreground="#000"
+                   />
     </Grid>
 </Window>

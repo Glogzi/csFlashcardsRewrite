@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,13 +16,17 @@ namespace flashcardsCsRewrite {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        public string[] QandA = File.ReadAllLines("QandA.txt");
+        public string correct = null;
         public MainWindow() {
             InitializeComponent();
             //creating QandA file if not exist
             doExist();
-            string drawnedQ = randomQ(QandA);
-            Question.Text = drawnedQ;
+            checkAnswer();
+        }
+        private static void doExist() {
+            if (!File.Exists("QandA.txt")) {
+                File.Create("QandA.txt").Close();
+            }
         }
         private static string randomQ(string[] questionsList) {
             string drawnQuestion = null;
@@ -44,18 +49,35 @@ namespace flashcardsCsRewrite {
 
             return drawnQuestion;
         }
-        private static void doExist() {
-            if (!File.Exists("QandA.txt")){
-                File.Create("QandA.txt");
-                System.Diagnostics.Process.Start("flashcardsCsRewrite");
-                Environment.Exit(0);
-            }            
+        private static string correctAnswer(string question, string[] QAlist) {
+            string crrctAnswer; 
+            for (int line = 0; line < QAlist.Length; line++) {
+                if (QAlist[line] == question) {
+                    crrctAnswer = QAlist[line+1];
+                    return crrctAnswer;
+                }
+            }
+            return "null";
         }
-
-        private void submit_Click(object sender, RoutedEventArgs e) {
-            string showIt = Answer.Text.Trim();
+        private void checkAnswer() {
+            string[] QandA = File.ReadAllLines("QandA.txt");
+            if (correct != null) {
+                if (Answer.Text.ToLower() == correct) {
+                    output.Text = "that's right!";
+                    output.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                }
+                else {
+                    output.Text = $"nope, correct Asnwer is {correct}";
+                    output.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                }
+            }
             string drawnedQ = randomQ(QandA);
             Question.Text = drawnedQ;
+            correct = correctAnswer(drawnedQ, QandA).ToLower();
+            Answer.Text = "";
+        }
+        private void submit_Click(object sender, RoutedEventArgs e) {
+            checkAnswer();
         }
     }
 }
