@@ -19,6 +19,7 @@ namespace flashcardsCsRewrite {
         public string correct = null;
         public MainWindow() {
             InitializeComponent();
+            submit.Focus();
             //creating QandA file if not exist
             doExist();
             checkAnswer();
@@ -87,6 +88,12 @@ namespace flashcardsCsRewrite {
         }
         private void submit_Click(object sender, RoutedEventArgs e) {
             checkAnswer();
+        }
+
+        private void Window_PreviewKeyUp(object sender, KeyEventArgs e) {
+            if(e.Key == Key.Enter) {
+                checkAnswer();
+            }
         }
     }
 }

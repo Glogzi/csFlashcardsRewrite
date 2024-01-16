@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:flashcardsCsRewrite"
         mc:Ignorable="d"
-        Title="Flashcards" Height="600" Width="400" MinHeight="600" MinWidth="400">
+        Title="Flashcards" Height="600" Width="400" MinHeight="600" MinWidth="400"
+        PreviewKeyUp="Window_PreviewKeyUp">
     <Grid>
         <TextBlock Text="FlashCards" FontSize="50" HorizontalAlignment="Center"/>
         <TextBlock Text="" Name="Question" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 0, 100" Width="350" TextAlignment="Center"/>
@@ -15,7 +16,7 @@
         
         <Button Name="submit" Height="25" Width="100" Content="submit"
                 VerticalAlignment="Center" HorizontalAlignment="Center" 
-                Margin="0, 100, 0, 0" Click="submit_Click"/>
+                Margin="0, 100, 0, 0" Click="submit_Click" Cursor="Hand"/>
         
         <TextBlock Text="Here will be output" Name="output" VerticalAlignment="Center" 
                    HorizontalAlignment="Center"  Width="375" Height="30"
